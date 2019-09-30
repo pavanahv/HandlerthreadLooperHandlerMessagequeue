@@ -1,4 +1,4 @@
-package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue;
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.aidl;
 
 import android.os.Handler;
 import android.os.HandlerThread;

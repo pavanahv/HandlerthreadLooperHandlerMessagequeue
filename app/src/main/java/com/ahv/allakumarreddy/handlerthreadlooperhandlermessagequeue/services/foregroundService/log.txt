@@ -1,0 +1,14 @@
+2019-09-30 18:28:26.447 31920-31920/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: constructor
+2019-09-30 18:28:26.449 31920-31920/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: oncreate
+2019-09-30 18:28:26.451 31920-31920/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: onStartCommand
+2019-09-30 18:28:26.472 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 0
+2019-09-30 18:28:27.473 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 1
+2019-09-30 18:28:28.474 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 2
+2019-09-30 18:28:29.475 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 3
+2019-09-30 18:28:30.478 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 4
+2019-09-30 18:28:31.482 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 5
+2019-09-30 18:28:32.484 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 6
+2019-09-30 18:28:33.488 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 7
+2019-09-30 18:28:34.489 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 8
+2019-09-30 18:28:35.490 31920-31979/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: count : 9
+2019-09-30 18:28:49.543 31920-31920/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: ondestroy

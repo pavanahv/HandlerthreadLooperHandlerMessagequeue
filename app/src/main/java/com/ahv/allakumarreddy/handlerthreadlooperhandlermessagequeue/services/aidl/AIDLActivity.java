@@ -1,4 +1,4 @@
-package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue;
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.aidl;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface;
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.R;
 
 public class AIDLActivity extends AppCompatActivity {
 

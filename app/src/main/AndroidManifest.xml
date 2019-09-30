@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,11 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".SumOfTwoService"
+            android:name=".services.foregroundService.ForegroundService"
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".AIDLActivity">
+        <activity android:name=".services.foregroundService.ForegroundServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".services.aidl.SumOfTwoService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".services.aidl.AIDLActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
