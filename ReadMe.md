@@ -28,7 +28,7 @@ A glance for all necessary topics in ANDROID.
 
 ### ForegroundService
 
-<u><b>ForegroundServiceActivity.java</b></u>
+<b>ForegroundServiceActivity.java</b>
 ```java
 
 package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.foregroundService;
@@ -72,7 +72,7 @@ public class ForegroundServiceActivity extends AppCompatActivity {
 
 ```
 
-<u><b>ForegroundService.java</b></u>
+<b>ForegroundService.java</b>
 ```java
 
 package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.foregroundService;
@@ -168,7 +168,7 @@ public class ForegroundService extends Service {
 
 ```
 
-<u><b>activity_foreground_service.xml</b></u>
+<b>activity_foreground_service.xml</b>
 ```xml
 
 <?xml version="1.0" encoding="utf-8"?>
@@ -212,7 +212,7 @@ public class ForegroundService extends Service {
 
 ```
 
-<u><b>AndroidManifest.xml</b></u>
+<b>AndroidManifest.xml</b>
 ```xml
 
 <?xml version="1.0" encoding="utf-8"?>
@@ -247,7 +247,7 @@ public class ForegroundService extends Service {
 
 ```
 
-<u><b>log.txt</b></u>
+<b>log.txt</b>
 ```txt
 
 2019-09-30 18:28:26.447 31920-31920/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/ForegroundService: constructor
@@ -267,7 +267,8 @@ public class ForegroundService extends Service {
 
 ```
 
-<u><b>Mobile Result</b></u>
+<b>Mobile Result</b>
+
 ![Foreground Service Start](./images/foregroundServiceStart.png?raw=true "Foreground Service Start")
 ![Foreground Service Started](./images/foregourdServiceStarted.png?raw=true "Foreground Service Started")
 ![Foreground Service Stopped](./images/foregroundServiceStopped.png?raw=true "Foreground Service Stopped")
