@@ -268,6 +268,6 @@ public class ForegroundService extends Service {
 ```
 
 <u><b>Mobile Result</b></u>
-![Foreground Service Start](./images/foregourdServiceStart.png?raw=true "Foreground Service Start")
+![Foreground Service Start](./images/foregroundServiceStart.png?raw=true "Foreground Service Start")
 ![Foreground Service Started](./images/foregourdServiceStarted.png?raw=true "Foreground Service Started")
-![Foreground Service Stopped](./images/foregourdServiceStopped.png?raw=true "Foreground Service Stopped")
+![Foreground Service Stopped](./images/foregroundServiceStopped.png?raw=true "Foreground Service Stopped")
