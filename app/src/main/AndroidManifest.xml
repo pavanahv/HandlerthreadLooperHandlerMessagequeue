@@ -12,11 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".services.normalBackgroundService.NormalBackgroundService"
-            android:enabled="true"
-            android:exported="true"></service>
+            android:name=".services.intentService.BackgroundIntentService"
+            android:exported="false"></service>
 
-        <activity android:name=".services.normalBackgroundService.NormalBackgroundServiceActivity">
+        <activity android:name=".services.intentService.IntentServiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,19 +24,27 @@
         </activity>
 
         <service
+            android:name=".services.normalBackgroundService.NormalBackgroundService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".services.normalBackgroundService.NormalBackgroundServiceActivity">
+        </activity>
+
+        <service
             android:name=".services.foregroundService.ForegroundService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".services.foregroundService.ForegroundServiceActivity"></activity>
+        <activity android:name=".services.foregroundService.ForegroundServiceActivity" />
 
         <service
             android:name=".services.aidl.SumOfTwoService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".services.aidl.AIDLActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".services.aidl.AIDLActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

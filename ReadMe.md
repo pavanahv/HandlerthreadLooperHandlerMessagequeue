@@ -20,7 +20,7 @@ A glance for all necessary topics in ANDROID.
     *   [Foreground Service](#ForegroundService) - should show notification
     *   Background service : runs in background
         *	[Normal service](#NormalBackgroundService) - sequential on UI thread itself
-        *	IntentService ( Multithreading )
+        *	[IntentService](#IntentService) - sequential not on UI thread
     *   Bound service : client – server architecture
         *   Local service using Binder ( sequential, same in app process )
         *   Using Messenger ( Sequential, isolated special process )
@@ -483,3 +483,216 @@ public class NormalBackgroundService extends Service {
 <b>Mobile Result</b>
 
 ![Normal Background Service](./images/normalBackgroundService.gif?raw=true "Normal Background Service")
+
+### IntentService
+
+<b>IntentServiceActivity.java</b>
+```java
+
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.intentService;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
+
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.R;
+
+public class IntentServiceActivity extends AppCompatActivity {
+
+    private TextView mTextView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_intent_service);
+
+        mTextView = findViewById(R.id.tv);
+    }
+
+    public void start(View view) {
+        Intent intent = new Intent(this,BackgroundIntentService.class);
+        startService(intent);
+        startService(intent);
+        mTextView.setText("Service started successfully!");
+    }
+
+    public void stop(View view) {
+        Intent intent = new Intent(this,BackgroundIntentService.class);
+        stopService(intent);
+        mTextView.setText("Service stopped successfully!");
+    }
+}
+
+```
+
+<b>BackgroundIntentService.java</b>
+```java
+
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.intentService;
+
+import android.app.IntentService;
+import android.content.Intent;
+import android.util.Log;
+
+public class BackgroundIntentService extends IntentService {
+
+    private static final String TAG = "BackgroundIntentService";
+
+    public BackgroundIntentService() {
+        super("BackgroundIntentService");
+        Log.d(TAG, "constructor");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "oncreate");
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Log.d(TAG, "onHandleIntent");
+        if (intent != null) {
+            for (int i = 0; i < 10; i++) {
+                Log.d(TAG, "count : " + i);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+
+```
+
+<b>activity_intent_service.xml</b>
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".services.intentService.IntentServiceActivity">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="5"
+        android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="start"
+            android:text="Start" />
+
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="stop"
+            android:text="Stop" />
+    </LinearLayout>
+</LinearLayout>
+
+```
+
+<b>AndroidManifest.xml</b>
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service
+            android:name=".services.intentService.BackgroundIntentService"
+            android:exported="false"></service>
+
+        <activity android:name=".services.intentService.IntentServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
+
+```
+
+<b>log.txt</b>
+```txt
+
+2019-10-01 18:02:32.626 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: constructor
+2019-10-01 18:02:32.629 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: oncreate
+2019-10-01 18:02:32.631 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onStartCommand
+2019-10-01 18:02:32.631 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onHandleIntent
+2019-10-01 18:02:32.631 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 0
+2019-10-01 18:02:32.634 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onStartCommand
+2019-10-01 18:02:33.632 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 1
+2019-10-01 18:02:34.633 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 2
+2019-10-01 18:02:35.633 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 3
+2019-10-01 18:02:36.634 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 4
+2019-10-01 18:02:37.635 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 5
+2019-10-01 18:02:38.636 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 6
+2019-10-01 18:02:39.636 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 7
+2019-10-01 18:02:40.637 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 8
+2019-10-01 18:02:41.638 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 9
+2019-10-01 18:02:42.642 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onHandleIntent
+2019-10-01 18:02:42.643 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 0
+2019-10-01 18:02:43.643 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 1
+2019-10-01 18:02:44.646 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 2
+2019-10-01 18:02:45.649 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 3
+2019-10-01 18:02:46.650 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 4
+2019-10-01 18:02:47.652 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 5
+2019-10-01 18:02:48.653 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 6
+2019-10-01 18:02:49.654 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 7
+2019-10-01 18:02:50.655 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 8
+2019-10-01 18:02:51.656 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 9
+2019-10-01 18:02:52.662 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onDestroy
+
+```
+
+<b>Mobile Result</b>
+
+![Background Intent Service](./images/backgroundIntentService.gif?raw=true "Background Intent Service")

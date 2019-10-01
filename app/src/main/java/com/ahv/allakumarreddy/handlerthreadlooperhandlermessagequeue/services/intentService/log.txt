@@ -1,0 +1,27 @@
+2019-10-01 18:02:32.626 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: constructor
+2019-10-01 18:02:32.629 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: oncreate
+2019-10-01 18:02:32.631 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onStartCommand
+2019-10-01 18:02:32.631 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onHandleIntent
+2019-10-01 18:02:32.631 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 0
+2019-10-01 18:02:32.634 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onStartCommand
+2019-10-01 18:02:33.632 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 1
+2019-10-01 18:02:34.633 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 2
+2019-10-01 18:02:35.633 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 3
+2019-10-01 18:02:36.634 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 4
+2019-10-01 18:02:37.635 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 5
+2019-10-01 18:02:38.636 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 6
+2019-10-01 18:02:39.636 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 7
+2019-10-01 18:02:40.637 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 8
+2019-10-01 18:02:41.638 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 9
+2019-10-01 18:02:42.642 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onHandleIntent
+2019-10-01 18:02:42.643 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 0
+2019-10-01 18:02:43.643 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 1
+2019-10-01 18:02:44.646 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 2
+2019-10-01 18:02:45.649 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 3
+2019-10-01 18:02:46.650 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 4
+2019-10-01 18:02:47.652 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 5
+2019-10-01 18:02:48.653 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 6
+2019-10-01 18:02:49.654 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 7
+2019-10-01 18:02:50.655 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 8
+2019-10-01 18:02:51.656 30819-31021/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: count : 9
+2019-10-01 18:02:52.662 30819-30819/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BackgroundIntentService: onDestroy
