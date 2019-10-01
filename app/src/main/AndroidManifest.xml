@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".services.foregroundService.ForegroundService"
+            android:name=".services.normalBackgroundService.NormalBackgroundService"
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".services.foregroundService.ForegroundServiceActivity">
+        <activity android:name=".services.normalBackgroundService.NormalBackgroundServiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,24 +25,19 @@
         </activity>
 
         <service
+            android:name=".services.foregroundService.ForegroundService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".services.foregroundService.ForegroundServiceActivity"></activity>
+
+        <service
             android:name=".services.aidl.SumOfTwoService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".services.aidl.AIDLActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".services.aidl.AIDLActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

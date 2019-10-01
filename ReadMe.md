@@ -19,7 +19,7 @@ A glance for all necessary topics in ANDROID.
 *	There are three types of services:
     *   [Foreground Service](#ForegroundService) - should show notification
     *   Background service : runs in background
-        *	Normal service ( sequential on UI thread itself )
+        *	[Normal service](#NormalBackgroundService) - sequential on UI thread itself
         *	IntentService ( Multithreading )
     *   Bound service : client – server architecture
         *   Local service using Binder ( sequential, same in app process )
@@ -272,3 +272,214 @@ public class ForegroundService extends Service {
 ![Foreground Service Start](./images/foregroundServiceStart.png?raw=true "Foreground Service Start")
 ![Foreground Service Started](./images/foregourdServiceStarted.png?raw=true "Foreground Service Started")
 ![Foreground Service Stopped](./images/foregroundServiceStopped.png?raw=true "Foreground Service Stopped")
+
+
+### NormalBackgroundService
+
+<b>NormalBackgroundServiceActivity.java</b>
+```java
+
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.normalBackgroundService;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
+
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.R;
+
+public class NormalBackgroundServiceActivity extends AppCompatActivity {
+
+    private TextView mTextview;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_normal_background_service);
+
+        mTextview = findViewById(R.id.tv);
+    }
+
+
+    public void start(View view) {
+        Intent intent = new Intent(this,NormalBackgroundService.class);
+        startService(intent);
+        startService(intent);
+        mTextview.setText("started successfully ");
+    }
+
+    public void stop(View view) {
+        Intent intent = new Intent(this,NormalBackgroundService.class);
+        stopService(intent);
+        mTextview.setText("stopped successfully ");
+    }
+}
+
+```
+
+<b>NormalBackgroundService.java</b>
+```java
+
+
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.normalBackgroundService;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.util.Log;
+
+public class NormalBackgroundService extends Service {
+    private static final String TAG = "NormalBackgroundService";
+
+    public NormalBackgroundService() {
+        Log.d(TAG, "constructor");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "onCreate");
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.d(TAG, "onBind");
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand");
+
+        for (int i = 0; i < 10; i++) {
+            Log.d(TAG, "count : " + i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "onDestroy");
+        super.onDestroy();
+    }
+}
+
+```
+
+<b>activity_normal_background_service.xml</b>
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".services.normalBackgroundService.NormalBackgroundServiceActivity">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="5"
+        android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="start"
+            android:text="Start" />
+
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="stop"
+            android:text="Stop" />
+    </LinearLayout>
+</LinearLayout>
+
+```
+
+<b>AndroidManifest.xml</b>
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service
+            android:name=".services.normalBackgroundService.NormalBackgroundService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".services.normalBackgroundService.NormalBackgroundServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
+
+```
+
+<b>log.txt</b>
+```txt
+
+2019-10-01 17:14:30.139 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: constructor
+2019-10-01 17:14:30.140 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: onCreate
+2019-10-01 17:14:30.142 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: onStartCommand
+2019-10-01 17:14:30.142 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 0
+2019-10-01 17:14:31.143 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 1
+2019-10-01 17:14:32.144 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 2
+2019-10-01 17:14:33.145 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 3
+2019-10-01 17:14:34.146 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 4
+2019-10-01 17:14:35.147 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 5
+2019-10-01 17:14:36.149 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 6
+2019-10-01 17:14:37.150 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 7
+2019-10-01 17:14:38.151 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 8
+2019-10-01 17:14:39.152 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 9
+2019-10-01 17:14:40.162 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: onStartCommand
+2019-10-01 17:14:40.162 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 0
+2019-10-01 17:14:41.163 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 1
+2019-10-01 17:14:42.164 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 2
+2019-10-01 17:14:43.165 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 3
+2019-10-01 17:14:44.166 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 4
+2019-10-01 17:14:45.167 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 5
+2019-10-01 17:14:46.169 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 6
+2019-10-01 17:14:47.169 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 7
+2019-10-01 17:14:48.170 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 8
+2019-10-01 17:14:49.171 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: count : 9
+2019-10-01 17:14:52.090 27686-27686/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/NormalBackgroundService: onDestroy
+
+```
+
+<b>Mobile Result</b>
+
+![Normal Background Service](./images/normalBackgroundService.gif?raw=true "Normal Background Service")
