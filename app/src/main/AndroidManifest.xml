@@ -17,15 +17,18 @@
             android:exported="true"></service>
 
         <activity android:name=".services.boundServiceUsingBinder.BoundServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service
             android:name=".services.intentService.BackgroundIntentService"
             android:exported="false" />
 
-        <activity android:name=".services.intentService.IntentServiceActivity">
-        </activity>
+        <activity android:name=".services.intentService.IntentServiceActivity"></activity>
 
         <service
             android:name=".services.normalBackgroundService.NormalBackgroundService"
@@ -47,13 +50,7 @@
             android:exported="true" />
 
         <activity android:name=".services.aidl.AIDLActivity" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

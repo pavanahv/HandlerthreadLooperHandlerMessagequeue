@@ -45,6 +45,7 @@ public class BoundServiceActivity extends AppCompatActivity {
             Log.d(TAG, "onServiceConnected");
             BoundService boundService = ((BoundService.LocalBinder) service).getService();
             int res = boundService.sumOfTwo(10, 2);
+            res = boundService.sumOfTwo(10, 2);
             mTextView.setText(res + "");
         }
 

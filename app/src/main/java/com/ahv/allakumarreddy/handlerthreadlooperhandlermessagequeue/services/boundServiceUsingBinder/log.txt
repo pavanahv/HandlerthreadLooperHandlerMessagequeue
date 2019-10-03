@@ -1,16 +1,26 @@
-2019-10-03 12:07:38.423 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: constructor
-2019-10-03 12:07:38.424 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onCreate
-2019-10-03 12:07:38.424 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onBind
-2019-10-03 12:07:38.430 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: onServiceConnected
-2019-10-03 12:07:38.430 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 0
-2019-10-03 12:07:39.432 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 1
-2019-10-03 12:07:40.433 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 2
-2019-10-03 12:07:41.434 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 3
-2019-10-03 12:07:42.435 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 4
-2019-10-03 12:07:43.436 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 5
-2019-10-03 12:07:44.437 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 6
-2019-10-03 12:07:45.438 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 7
-2019-10-03 12:07:46.439 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 8
-2019-10-03 12:07:47.440 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 9
-2019-10-03 12:07:55.922 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onUnBind
-2019-10-03 12:07:55.923 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onDestroy
+2019-09-11 02:33:17.749 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: constructor
+2019-09-11 02:33:17.749 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onCreate
+2019-09-11 02:33:17.749 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onBind
+2019-09-11 02:33:17.761 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: onServiceConnected
+2019-09-11 02:33:17.761 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 0
+2019-09-11 02:33:18.761 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 1
+2019-09-11 02:33:19.762 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 2
+2019-09-11 02:33:20.763 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 3
+2019-09-11 02:33:21.764 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 4
+2019-09-11 02:33:22.766 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 5
+2019-09-11 02:33:23.767 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 6
+2019-09-11 02:33:24.768 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 7
+2019-09-11 02:33:25.770 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 8
+2019-09-11 02:33:26.771 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 9
+2019-09-11 02:33:27.772 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 0
+2019-09-11 02:33:28.773 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 1
+2019-09-11 02:33:29.774 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 2
+2019-09-11 02:33:30.776 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 3
+2019-09-11 02:33:31.778 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 4
+2019-09-11 02:33:32.779 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 5
+2019-09-11 02:33:33.781 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 6
+2019-09-11 02:33:34.782 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 7
+2019-09-11 02:33:35.783 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 8
+2019-09-11 02:33:36.783 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 9
+2019-09-11 02:33:43.789 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onUnBind
+2019-09-11 02:33:43.789 27350-27350/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onDestroy
