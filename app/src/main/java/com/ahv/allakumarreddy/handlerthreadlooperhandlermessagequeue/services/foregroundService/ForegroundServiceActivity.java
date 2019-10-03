@@ -16,7 +16,7 @@ public class ForegroundServiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_foreground_service);
+        setContentView(R.layout.activity_bound_service);
         mTextView = findViewById(R.id.tv);
     }
 

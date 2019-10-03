@@ -22,7 +22,7 @@ A glance for all necessary topics in ANDROID.
         *	[Normal service](#NormalBackgroundService) - sequential on UI thread itself
         *	[IntentService](#IntentService) - sequential not on UI thread
     *   Bound service : client – server architecture
-        *   Local service using Binder ( sequential, same in app process )
+        *   [Local service using Binder](#BoundService) -  sequential, same in app process
         *   Using Messenger ( Sequential, isolated special process )
         *   AIDL ( Multithreading, isolated process )
 
@@ -696,3 +696,243 @@ public class BackgroundIntentService extends IntentService {
 <b>Mobile Result</b>
 
 ![Background Intent Service](./images/backgroundIntentService.gif?raw=true "Background Intent Service")
+
+### BoundService
+
+<b>BoundServiceActivity.java</b>
+```java
+
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.boundServiceUsingBinder;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.R;
+
+public class BoundServiceActivity extends AppCompatActivity {
+
+    private static final String TAG = "BoundServiceActivity";
+    private TextView mTextView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bound_service);
+
+        mTextView = findViewById(R.id.tv);
+    }
+
+    public void start(View view) {
+
+        Intent intent = new Intent(this, BoundService.class);
+        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        mTextView.setText("Service running..");
+    }
+
+    public void stop(View view) {
+        Intent intent = new Intent(this, BoundService.class);
+        unbindService(mServiceConnection);
+        mTextView.setText("Service Stopped..");
+    }
+
+    ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, "onServiceConnected");
+            BoundService boundService = ((BoundService.LocalBinder) service).getService();
+            int res = boundService.sumOfTwo(10, 2);
+            mTextView.setText(res + "");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG, "onServiceDisconnected");
+            mTextView.setText("service stopped");
+        }
+    };
+}
+
+
+```
+
+<b>BoundService.java</b>
+```java
+
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.boundServiceUsingBinder;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
+
+public class BoundService extends Service {
+    private static final String TAG = "BoundService";
+    private IBinder mBinder = new LocalBinder();
+
+    public class LocalBinder extends Binder {
+        BoundService getService() {
+            return BoundService.this;
+        }
+    }
+
+    public int sumOfTwo(int a, int b) {
+        for (int i=0;i<10;i++) {
+            try {
+                Log.d(TAG,"count : "+i);
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return a + b;
+    }
+
+
+    public BoundService() {
+        Log.d(TAG, "constructor");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "onCreate");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.d(TAG, "onBind");
+        return mBinder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.d(TAG, "onUnBind");
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "onDestroy");
+        super.onDestroy();
+    }
+}
+
+
+```
+
+<b>activity_bound_service.xml</b>
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".services.boundServiceUsingBinder.BoundServiceActivity">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="5"
+        android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="start"
+            android:text="Start" />
+
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="stop"
+            android:text="Stop" />
+    </LinearLayout>
+</LinearLayout>
+
+```
+
+<b>AndroidManifest.xml</b>
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service
+            android:name=".services.boundServiceUsingBinder.BoundService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".services.boundServiceUsingBinder.BoundServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+```
+
+<b>log.txt</b>
+```txt
+
+2019-10-03 12:07:38.423 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: constructor
+2019-10-03 12:07:38.424 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onCreate
+2019-10-03 12:07:38.424 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onBind
+2019-10-03 12:07:38.430 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: onServiceConnected
+2019-10-03 12:07:38.430 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 0
+2019-10-03 12:07:39.432 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 1
+2019-10-03 12:07:40.433 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 2
+2019-10-03 12:07:41.434 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 3
+2019-10-03 12:07:42.435 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 4
+2019-10-03 12:07:43.436 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 5
+2019-10-03 12:07:44.437 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 6
+2019-10-03 12:07:45.438 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 7
+2019-10-03 12:07:46.439 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 8
+2019-10-03 12:07:47.440 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 9
+2019-10-03 12:07:55.922 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onUnBind
+2019-10-03 12:07:55.923 6882-6882/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onDestroy
+
+```
+
+<b>Mobile Result</b>
+
+![Bound Service](./images/boundService.gif?raw=true "Bound Service")

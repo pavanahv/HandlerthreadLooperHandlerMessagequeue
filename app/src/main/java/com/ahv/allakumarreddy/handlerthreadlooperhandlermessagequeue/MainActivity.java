@@ -1,13 +1,7 @@
 package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
-
-import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.aidl.MyHandlerThread;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*
         final TextView mTextView = findViewById(R.id.tv);
 
         final Handler mHandler = new Handler(Looper.getMainLooper()) {
@@ -54,6 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 msg.obj = "execution completed 2";
                 mHandler.sendMessage(msg);
             }
-        });
+        });*/
     }
 }

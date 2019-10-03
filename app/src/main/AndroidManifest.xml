@@ -12,15 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
+            android:name=".services.boundServiceUsingBinder.BoundService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".services.boundServiceUsingBinder.BoundServiceActivity">
+
+        </activity>
+
+        <service
             android:name=".services.intentService.BackgroundIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".services.intentService.IntentServiceActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
@@ -28,8 +32,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".services.normalBackgroundService.NormalBackgroundServiceActivity">
-        </activity>
+        <activity android:name=".services.normalBackgroundService.NormalBackgroundServiceActivity" />
 
         <service
             android:name=".services.foregroundService.ForegroundService"
@@ -44,7 +47,13 @@
             android:exported="true" />
 
         <activity android:name=".services.aidl.AIDLActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
