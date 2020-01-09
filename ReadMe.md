@@ -23,8 +23,8 @@ A glance for all necessary topics in ANDROID.
         *	[IntentService](#IntentService) - sequential not on UI thread
     *   Bound service : client – server architecture
         *   [Local service using Binder](#BoundService) -  sequential, same in app process
-        *   [Remote Service Using Messenger](#BoundServiceMessenger) - Sequential, Isolated special process
-        *   AIDL ( Multithreading, isolated process )
+        *   [Remote Service Using Messenger](#BoundServiceMessenger) - Sequential among applications access, Isolated process
+        *   [AIDL](#AIDL) - Multithreading among applications access, isolated process
 
 ### ForegroundService
 
@@ -1195,5 +1195,356 @@ public class BoundService extends Service {
 2020-01-09 16:06:56.665 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 9
 2020-01-09 16:06:57.668 28251-28251/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: sum : 15
 2020-01-09 16:07:10.417 28251-28251/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: unbind service from activity
+
+```
+
+### AIDL
+
+<b>AIDLActivity.java</b>
+```java
+
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.aidl;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface;
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.R;
+
+public class AIDLActivity extends AppCompatActivity {
+
+    private static final String TAG = AIDLActivity.class.getSimpleName();
+    private TextView tv;
+    private ISumOfTwoAidlInterface iSumOfTwoAidlInterface;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_aidl);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        // Called when the connection with the service is established
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // this gets an instance of the IRemoteInterface, which we can use to call on the service
+            iSumOfTwoAidlInterface = ISumOfTwoAidlInterface.Stub.asInterface(service);
+        }
+
+        // Called when the connection with the service disconnects unexpectedly
+        public void onServiceDisconnected(ComponentName className) {
+            Log.e(TAG, "Service has unexpectedly disconnected");
+            iSumOfTwoAidlInterface = null;
+        }
+    };
+
+    public void start(View view) {
+        Intent intent = new Intent(AIDLActivity.this, SumOfTwoService.class);
+        intent.setAction(ISumOfTwoAidlInterface.class.getName());
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    public void stop(View view) {
+        unbindService(mConnection);
+    }
+
+    public void sum(View view) {
+        int sum = 0;
+        try {
+            sum = iSumOfTwoAidlInterface.sum(10, 2);
+        } catch (RemoteException e) {
+            Log.d(TAG, e.getMessage());
+        }
+        Log.d(TAG, "Sum:" + sum);
+    }
+}
+
+```
+
+<b>activity_aidl.xml</b>
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".services.aidl.AIDLActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="start"
+        android:text="start" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="sum"
+        android:text="Sum" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="stop"
+        android:text="stop" />
+</LinearLayout>
+
+```
+
+<b>SumOfTwoService.java</b>
+```java
+
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.aidl;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
+
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface;
+
+public class SumOfTwoService extends Service {
+    private static final String TAG = SumOfTwoService.class.getSimpleName();
+    private final ISumOfTwoAidlInterface.Stub mBinder = new ISumOfTwoAidlInterface.Stub() {
+        @Override
+        public int sum(int a, int b) throws RemoteException {
+            int res = sumOfTwo(a, b);
+            return res;
+        }
+    };
+
+    public int sumOfTwo(int a, int b) {
+        for (int i = 0; i < 10; i++) {
+            try {
+                Log.d(TAG, "count : " + i);
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return a + b;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "oncreate");
+    }
+
+    public SumOfTwoService() {
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.d(TAG, "onBind");
+        return mBinder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.d(TAG, "onUnbind");
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "ondestroy");
+        super.onDestroy();
+    }
+}
+
+```
+
+<b>ISumOfTwoAidlInterface.aidl</b>
+```java
+
+// ISumOfTwoAidlInterface.aidl
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue;
+
+// Declare any non-default types here with import statements
+
+interface ISumOfTwoAidlInterface {
+
+    int sum(int a, int b);
+}
+
+```
+
+<b>ISumOfTwoAidlInterface.java</b>
+```java
+
+/*
+ * This file is auto-generated.  DO NOT MODIFY.
+ * Original file: D:\\others\\HandlerthreadLooperHandlerMessagequeue\\app\\src\\main\\aidl\\com\\ahv\\allakumarreddy\\handlerthreadlooperhandlermessagequeue\\ISumOfTwoAidlInterface.aidl
+ */
+package com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue;
+// Declare any non-default types here with import statements
+
+public interface ISumOfTwoAidlInterface extends android.os.IInterface {
+    /**
+     * Local-side IPC implementation stub class.
+     */
+    public static abstract class Stub extends android.os.Binder implements com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface {
+        private static final java.lang.String DESCRIPTOR = "com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface";
+
+        /**
+         * Construct the stub at attach it to the interface.
+         */
+        public Stub() {
+            this.attachInterface(this, DESCRIPTOR);
+        }
+
+        /**
+         * Cast an IBinder object into an com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface interface,
+         * generating a proxy if needed.
+         */
+        public static com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface asInterface(android.os.IBinder obj) {
+            if ((obj == null)) {
+                return null;
+            }
+            android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
+            if (((iin != null) && (iin instanceof com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface))) {
+                return ((com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface) iin);
+            }
+            return new com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface.Stub.Proxy(obj);
+        }
+
+        @Override
+        public android.os.IBinder asBinder() {
+            return this;
+        }
+
+        @Override
+        public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
+            java.lang.String descriptor = DESCRIPTOR;
+            switch (code) {
+                case INTERFACE_TRANSACTION: {
+                    reply.writeString(descriptor);
+                    return true;
+                }
+                case TRANSACTION_sum: {
+                    data.enforceInterface(descriptor);
+                    int _arg0;
+                    _arg0 = data.readInt();
+                    int _arg1;
+                    _arg1 = data.readInt();
+                    int _result = this.sum(_arg0, _arg1);
+                    reply.writeNoException();
+                    reply.writeInt(_result);
+                    return true;
+                }
+                default: {
+                    return super.onTransact(code, data, reply, flags);
+                }
+            }
+        }
+
+        private static class Proxy implements com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.ISumOfTwoAidlInterface {
+            private android.os.IBinder mRemote;
+
+            Proxy(android.os.IBinder remote) {
+                mRemote = remote;
+            }
+
+            @Override
+            public android.os.IBinder asBinder() {
+                return mRemote;
+            }
+
+            public java.lang.String getInterfaceDescriptor() {
+                return DESCRIPTOR;
+            }
+
+            @Override
+            public int sum(int a, int b) throws android.os.RemoteException {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                int _result;
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    _data.writeInt(a);
+                    _data.writeInt(b);
+                    mRemote.transact(Stub.TRANSACTION_sum, _data, _reply, 0);
+                    _reply.readException();
+                    _result = _reply.readInt();
+                } finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+                return _result;
+            }
+        }
+
+        static final int TRANSACTION_sum = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+    }
+
+    public int sum(int a, int b) throws android.os.RemoteException;
+}
+
+```
+
+<b>AndroidManifest.xml</b>
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <service
+            android:name=".services.aidl.SumOfTwoService"
+            android:enabled="true"
+            android:isolatedProcess="true"
+            android:exported="true" />
+
+        <activity android:name=".services.aidl.AIDLActivity" />
+    </application>
+
+</manifest>
+
+```
+
+<b>log.txt</b>
+```txt
+
+2020-01-09 16:51:28.407 30055-30055/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: oncreate
+2020-01-09 16:51:28.407 30055-30055/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: onBind
+2020-01-09 16:51:30.519 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 0
+2020-01-09 16:51:31.520 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 1
+2020-01-09 16:51:32.521 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 2
+2020-01-09 16:51:33.521 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 3
+2020-01-09 16:51:34.522 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 4
+2020-01-09 16:51:35.523 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 5
+2020-01-09 16:51:36.524 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 6
+2020-01-09 16:51:37.525 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 7
+2020-01-09 16:51:38.526 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 8
+2020-01-09 16:51:39.526 30055-30068/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/SumOfTwoService: count : 9
+2020-01-09 16:51:40.529 29997-29997/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/AIDLActivity: Sum:12
 
 ```
