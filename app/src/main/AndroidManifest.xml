@@ -11,12 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name=".services.boundServiceUsingBinder.BoundService"
-            android:enabled="true"
-            android:exported="true"></service>
-
-        <activity android:name=".services.boundServiceUsingBinder.BoundServiceActivity">
+        <activity android:name=".BaseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,10 +20,25 @@
         </activity>
 
         <service
+            android:name=".services.boundServiceUsingMessenger.BoundService"
+            android:enabled="true"
+            android:exported="true"
+            android:isolatedProcess="true" />
+
+        <activity android:name=".services.boundServiceUsingMessenger.BoundServiceActivity"></activity>
+
+        <service
+            android:name=".services.boundServiceUsingBinder.BoundService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".services.boundServiceUsingBinder.BoundServiceActivity" />
+
+        <service
             android:name=".services.intentService.BackgroundIntentService"
             android:exported="false" />
 
-        <activity android:name=".services.intentService.IntentServiceActivity"></activity>
+        <activity android:name=".services.intentService.IntentServiceActivity" />
 
         <service
             android:name=".services.normalBackgroundService.NormalBackgroundService"

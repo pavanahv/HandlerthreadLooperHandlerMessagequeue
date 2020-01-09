@@ -1,0 +1,18 @@
+2020-01-09 16:06:30.056 28251-28251/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: bind service from activity
+2020-01-09 16:06:30.512 28251-28251/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: onServiceConnected
+2020-01-09 16:06:30.098 28293-28293/? I/lermessagequeu: Late-enabling -Xcheck:jni
+2020-01-09 16:06:30.505 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: constructor
+2020-01-09 16:06:30.506 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onCreate
+2020-01-09 16:06:30.507 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: onBind
+2020-01-09 16:06:47.658 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 0
+2020-01-09 16:06:48.658 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 1
+2020-01-09 16:06:49.659 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 2
+2020-01-09 16:06:50.660 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 3
+2020-01-09 16:06:51.661 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 4
+2020-01-09 16:06:52.662 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 5
+2020-01-09 16:06:53.662 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 6
+2020-01-09 16:06:54.663 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 7
+2020-01-09 16:06:55.664 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 8
+2020-01-09 16:06:56.665 28293-28293/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundService: count : 9
+2020-01-09 16:06:57.668 28251-28251/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: sum : 15
+2020-01-09 16:07:10.417 28251-28251/com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue D/BoundServiceActivity: unbind service from activity
