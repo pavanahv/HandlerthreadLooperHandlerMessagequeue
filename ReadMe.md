@@ -5,7 +5,7 @@ A glance for all necessary topics in ANDROID.
 ## Topics
 
 * [Services](#services) - Services
-* [Activity & Fragment LifeCycle](#Activity & Fragment LifeCycle) - Activity & Fragment LifeCycle
+* [Activity & Fragment LifeCycle](#ActivityFragmentLifeCycle) - Activity & Fragment LifeCycle
 
 ## Services
 
@@ -1549,7 +1549,7 @@ public interface ISumOfTwoAidlInterface extends android.os.IInterface {
 
 ```
 
-## Activity & Fragment LifeCycle
+## ActivityFragmentLifeCycle
 
 ![Activity & Fragment LifeCycle](./images/Activity_Fragment_LifeCycle.png?raw=true "Activity & Fragment LifeCycle")
 
