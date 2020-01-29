@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.FragmentActivityLifecycle.FragmentAndActivityLifeCycle;
 import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.aidl.AIDLActivity;
 import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.boundServiceUsingBinder.BoundServiceActivity;
 import com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.foregroundService.ForegroundServiceActivity;
@@ -29,7 +30,8 @@ public class BaseActivity extends AppCompatActivity {
                 "ForegroundService",
                 "BoundService Using Binder (Local Service)",
                 "BoundServiceActivity Using Messenger (Remote Service)",
-                "AIDL"
+                "AIDL",
+                "FragmentActivity LifeCycle"
         };
         final Class<BaseActivity> cla[] = new Class[]{
                 MainActivity.class,
@@ -38,7 +40,8 @@ public class BaseActivity extends AppCompatActivity {
                 ForegroundServiceActivity.class,
                 BoundServiceActivity.class,
                 com.ahv.allakumarreddy.handlerthreadlooperhandlermessagequeue.services.boundServiceUsingMessenger.BoundServiceActivity.class,
-                AIDLActivity.class
+                AIDLActivity.class,
+                FragmentAndActivityLifeCycle.class
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arr);
         listView.setAdapter(adapter);

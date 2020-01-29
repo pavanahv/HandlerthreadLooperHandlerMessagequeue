@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".FragmentActivityLifecycle.FragmentAndActivityLifeCycle"></activity>
         <activity android:name=".BaseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +26,7 @@
             android:exported="true"
             android:isolatedProcess="true" />
 
-        <activity android:name=".services.boundServiceUsingMessenger.BoundServiceActivity"></activity>
+        <activity android:name=".services.boundServiceUsingMessenger.BoundServiceActivity" />
 
         <service
             android:name=".services.boundServiceUsingBinder.BoundService"
@@ -57,11 +58,11 @@
         <service
             android:name=".services.aidl.SumOfTwoService"
             android:enabled="true"
-            android:isolatedProcess="true"
-            android:exported="true" />
+            android:exported="true"
+            android:isolatedProcess="true" />
 
         <activity android:name=".services.aidl.AIDLActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
